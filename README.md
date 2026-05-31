@@ -1,4 +1,4 @@
-# NexusHR – AI-Enabled Human Resource Management System
+# NexusHR – AI-Enabled Human Resource Management System 
 
 ## Overview
 
