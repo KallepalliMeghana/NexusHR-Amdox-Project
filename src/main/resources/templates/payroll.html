@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Payroll</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="navbar">
+    <h2>NexusHR Lite</h2>
+    <div>
+        <a href="/">Dashboard</a>
+        <a href="/employees">Employees</a>
+        <a href="/attendance">Attendance</a>
+        <a href="/leaves">Leaves</a>
+        <a href="/payroll">Payroll</a>
+    </div>
+</div>
+
+<div class="container">
+    <h1>Payroll Processing</h1>
+
+    <form action="/payroll" method="post" class="form">
+        <select name="employeeId" required>
+            <option value="">Select Employee</option>
+            <option th:each="e : ${employees}" th:value="${e.id}" th:text="${e.fullName}"></option>
+        </select>
+        <input type="text" name="month" placeholder="Example: May 2026" required>
+        <button type="submit">Generate Payroll</button>
+    </form>
+
+    <table>
+        <tr><th>ID</th><th>Employee ID</th><th>Month</th><th>Basic</th><th>Allowance</th><th>Deductions</th><th>Net Salary</th></tr>
+        <tr th:each="p : ${payrolls}">
+            <td th:text="${p.id}"></td>
+            <td th:text="${p.employeeId}"></td>
+            <td th:text="${p.month}"></td>
+            <td th:text="${p.basicSalary}"></td>
+            <td th:text="${p.allowance}"></td>
+            <td th:text="${p.deductions}"></td>
+            <td th:text="${p.netSalary}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

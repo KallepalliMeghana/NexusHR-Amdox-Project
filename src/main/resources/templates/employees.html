@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employees</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="navbar">
+    <h2>NexusHR Lite</h2>
+    <div>
+        <a href="/">Dashboard</a>
+        <a href="/employees">Employees</a>
+        <a href="/attendance">Attendance</a>
+        <a href="/leaves">Leaves</a>
+        <a href="/payroll">Payroll</a>
+    </div>
+</div>
+
+<div class="container">
+    <h1>Employee Management</h1>
+
+    <form action="/employees" method="post" class="form">
+        <input type="text" name="fullName" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="department" placeholder="Department">
+        <input type="text" name="designation" placeholder="Designation">
+        <input type="number" step="0.01" name="salary" placeholder="Salary" required>
+        <input type="date" name="joiningDate">
+        <input type="number" name="performanceScore" placeholder="Performance Score 0-100">
+        <button type="submit">Add Employee</button>
+    </form>
+
+    <table>
+        <tr>
+            <th>ID</th><th>Name</th><th>Email</th><th>Department</th><th>Salary</th><th>Risk</th><th>Action</th>
+        </tr>
+        <tr th:each="e : ${employees}">
+            <td th:text="${e.id}"></td>
+            <td th:text="${e.fullName}"></td>
+            <td th:text="${e.email}"></td>
+            <td th:text="${e.department}"></td>
+            <td th:text="${e.salary}"></td>
+            <td th:text="${e.attritionRisk}"></td>
+            <td><a th:href="@{'/employees/delete/' + ${e.id}}" class="danger">Delete</a></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

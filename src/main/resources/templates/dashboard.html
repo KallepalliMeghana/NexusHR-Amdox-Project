@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>NexusHR Dashboard</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="navbar">
+    <h2>NexusHR Lite</h2>
+    <div>
+        <a href="/">Dashboard</a>
+        <a href="/employees">Employees</a>
+        <a href="/attendance">Attendance</a>
+        <a href="/leaves">Leaves</a>
+        <a href="/payroll">Payroll</a>
+    </div>
+</div>
+
+<div class="container">
+    <h1>AI-Enabled HR Management Dashboard</h1>
+
+    <div class="cards">
+        <div class="card"><h3>Total Employees</h3><p th:text="${employeeCount}"></p></div>
+        <div class="card"><h3>Attendance Records</h3><p th:text="${attendanceCount}"></p></div>
+        <div class="card"><h3>Leave Requests</h3><p th:text="${leaveCount}"></p></div>
+        <div class="card"><h3>Payroll Runs</h3><p th:text="${payrollCount}"></p></div>
+    </div>
+
+    <h2>AI Workforce Insights</h2>
+    <table>
+        <tr>
+            <th>ID</th><th>Name</th><th>Department</th><th>Performance Score</th><th>Attrition Risk</th>
+        </tr>
+        <tr th:each="e : ${employees}">
+            <td th:text="${e.id}"></td>
+            <td th:text="${e.fullName}"></td>
+            <td th:text="${e.department}"></td>
+            <td th:text="${e.performanceScore}"></td>
+            <td th:text="${e.attritionRisk}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

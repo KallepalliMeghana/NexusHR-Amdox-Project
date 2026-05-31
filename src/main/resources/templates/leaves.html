@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Leaves</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="navbar">
+    <h2>NexusHR Lite</h2>
+    <div>
+        <a href="/">Dashboard</a>
+        <a href="/employees">Employees</a>
+        <a href="/attendance">Attendance</a>
+        <a href="/leaves">Leaves</a>
+        <a href="/payroll">Payroll</a>
+    </div>
+</div>
+
+<div class="container">
+    <h1>Leave Management</h1>
+
+    <form action="/leaves" method="post" class="form">
+        <select name="employeeId" required>
+            <option value="">Select Employee</option>
+            <option th:each="e : ${employees}" th:value="${e.id}" th:text="${e.fullName}"></option>
+        </select>
+        <select name="leaveType">
+            <option value="CASUAL">Casual</option>
+            <option value="SICK">Sick</option>
+            <option value="EARNED">Earned</option>
+        </select>
+        <input type="date" name="startDate" required>
+        <input type="date" name="endDate" required>
+        <input type="text" name="reason" placeholder="Reason">
+        <button type="submit">Apply Leave</button>
+    </form>
+
+    <table>
+        <tr><th>ID</th><th>Employee ID</th><th>Type</th><th>Start</th><th>End</th><th>Reason</th><th>Status</th><th>Action</th></tr>
+        <tr th:each="l : ${leaves}">
+            <td th:text="${l.id}"></td>
+            <td th:text="${l.employeeId}"></td>
+            <td th:text="${l.leaveType}"></td>
+            <td th:text="${l.startDate}"></td>
+            <td th:text="${l.endDate}"></td>
+            <td th:text="${l.reason}"></td>
+            <td th:text="${l.status}"></td>
+            <td>
+                <a th:href="@{'/leaves/status/' + ${l.id} + '/APPROVED'}">Approve</a>
+                <a th:href="@{'/leaves/status/' + ${l.id} + '/REJECTED'}" class="danger">Reject</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

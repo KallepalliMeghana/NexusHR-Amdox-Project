@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Attendance</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="navbar">
+    <h2>NexusHR Lite</h2>
+    <div>
+        <a href="/">Dashboard</a>
+        <a href="/employees">Employees</a>
+        <a href="/attendance">Attendance</a>
+        <a href="/leaves">Leaves</a>
+        <a href="/payroll">Payroll</a>
+    </div>
+</div>
+
+<div class="container">
+    <h1>Attendance Management</h1>
+
+    <form action="/attendance" method="post" class="form">
+        <select name="employeeId" required>
+            <option value="">Select Employee</option>
+            <option th:each="e : ${employees}" th:value="${e.id}" th:text="${e.fullName}"></option>
+        </select>
+        <select name="status">
+            <option value="PRESENT">Present</option>
+            <option value="ABSENT">Absent</option>
+            <option value="HALF_DAY">Half Day</option>
+        </select>
+        <button type="submit">Mark Attendance</button>
+    </form>
+
+    <table>
+        <tr><th>ID</th><th>Employee ID</th><th>Date</th><th>Status</th></tr>
+        <tr th:each="a : ${attendanceList}">
+            <td th:text="${a.id}"></td>
+            <td th:text="${a.employeeId}"></td>
+            <td th:text="${a.attendanceDate}"></td>
+            <td th:text="${a.status}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
